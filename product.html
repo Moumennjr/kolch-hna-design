@@ -100,15 +100,18 @@
     .section{padding-block:48px;border-top:1px solid var(--border)}
     .section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:22px}
     .section-head h2{font-size:clamp(1.3rem,1rem + 1vw,1.8rem)}
-    .grid-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
-    .product-card{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--surface);transition:border-color .15s}
+    .grid-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:stretch}
+    .product-card{display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--surface);transition:border-color .15s;cursor:pointer}
     .product-card:hover{border-color:#D5D5CE}
-    .product-card-media{aspect-ratio:4/3;background:var(--subtle)}
-    .product-card-media img{width:100%;height:100%;object-fit:cover}
-    .product-card-body{display:grid;gap:6px;padding:14px}
+    .product-card-media{position:relative;aspect-ratio:4/3;background:var(--subtle);overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0}
+    .product-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+    .product-card:hover .product-card-media img{transform:scale(1.06)}
+    .product-card-body{display:flex;flex-direction:column;flex:1;gap:6px;padding:14px;min-height:0}
     .product-card-cat{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
-    .product-card-title{font-size:14px;font-weight:600}
+    .product-card-title{font-size:14px;font-weight:600;line-height:1.4}
     .product-card-price{font-weight:600}
+    .product-card-footer{margin-top:auto;display:grid;gap:10px;padding-top:12px}
+    .product-card-footer .btn{width:100%}
     @media(max-width:1024px){
       .product-grid{grid-template-columns:1fr;gap:28px}
       .grid-products{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -130,6 +133,7 @@
           <span class="brand-word">KOLCH <span class="brand-accent">HNA</span></span>
         </a>
         <div class="header-actions">
+          <a class="btn btn-outline btn-sm" href="cart.html">Panier</a>
           <a class="btn btn-outline btn-sm" href="login.html">Se connecter</a>
           <a class="btn btn-primary btn-sm" href="signup.html">S'inscrire</a>
         </div>
@@ -217,6 +221,9 @@
               <span class="product-card-cat">Électronique</span>
               <h3 class="product-card-title">Écouteurs sans fil</h3>
               <span class="product-card-price">6 900 DZD</span>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-sm">Ajouter au panier</button>
+              </div>
             </div>
           </article>
           <article class="product-card">
@@ -227,6 +234,9 @@
               <span class="product-card-cat">Électronique</span>
               <h3 class="product-card-title">Coque de protection</h3>
               <span class="product-card-price">1 250 DZD</span>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-sm">Ajouter au panier</button>
+              </div>
             </div>
           </article>
           <article class="product-card">
@@ -237,6 +247,9 @@
               <span class="product-card-cat">Électronique</span>
               <h3 class="product-card-title">Chargeur rapide 65W</h3>
               <span class="product-card-price">2 900 DZD</span>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-sm">Ajouter au panier</button>
+              </div>
             </div>
           </article>
           <article class="product-card">
@@ -247,6 +260,9 @@
               <span class="product-card-cat">Électronique</span>
               <h3 class="product-card-title">Support magnétique</h3>
               <span class="product-card-price">1 450 DZD</span>
+              <div class="product-card-footer">
+                <button class="btn btn-primary btn-sm">Ajouter au panier</button>
+              </div>
             </div>
           </article>
         </div>

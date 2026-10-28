@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Produits — KOLCH HNA</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FFFFFF; --surface:#FFFFFF; --text:#191919; --muted:#737373;
+      --border:#E7E7E2; --dark:#111111; --lime:#D7FF00; --subtle:#F0F0EC; --warm:#F7F7F4;
+      --muted-strong:#66665F; --muted-dark:#B9B9B4; --border-dark:#3A3A38;
+      --lime-ring:rgba(215,255,0,.45); --placeholder:#6E6E68;
+      --r-xs:4px; --r-sm:8px; --r-md:10px; --r-lg:12px; --r-xl:14px;
+      --shadow:0 1px 2px rgba(25,25,25,.04);
+      --container:1200px;
+      --font-display:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+      --font-body:"Inter",ui-sans-serif,system-ui,sans-serif;
+      color-scheme: light;
+    }
+    [data-theme="dark"]{
+      --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+      --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+      --muted-strong:#B9B9B4; --muted-dark:#6E6E68; --border-dark:#3A3A38;
+      --lime-ring:rgba(215,255,0,.35); --placeholder:#6E6E68;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+      color-scheme: dark;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+        --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+        --muted-strong:#B9B9B4; --muted-dark:#6E6E68; --border-dark:#3A3A38;
+        --lime-ring:rgba(215,255,0,.35); --placeholder:#6E6E68;
+        --shadow:0 1px 2px rgba(0,0,0,.4);
+        color-scheme: dark;
+      }
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:var(--font-body);font-size:15px;line-height:1.6;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+    img{display:block;max-width:100%}
+    ::selection{background:var(--lime);color:var(--dark)}
+    :focus-visible{outline:2px solid var(--dark);outline-offset:2px;box-shadow:0 0 0 4px var(--lime-ring)}
+    h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:600;letter-spacing:-.025em;color:var(--text)}
+    .container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+    .icon{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .site-header{position:sticky;top:0;z-index:60;background:var(--surface)}
+    .masthead{background:var(--surface);border-bottom:1px solid var(--border)}
+    .masthead-inner{display:flex;align-items:center;gap:20px;height:76px}
+    .brand{display:inline-flex;align-items:baseline;gap:10px;flex:none}
+    .brand-word{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.04em;text-transform:uppercase;color:var(--text)}
+    .brand-accent{display:inline-flex;padding:1px 4px;border-radius:2px;background:var(--lime);color:var(--dark)}
+    .header-search-wrap{position:relative;flex:1;min-width:0;max-width:680px;margin-inline:auto}
+    .global-search{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);height:44px;padding:0 16px}
+    .global-search input{flex:1;border:0;background:transparent;color:var(--text);font-size:14px}
+    .global-search input::placeholder{color:var(--placeholder)}
+    .header-actions{display:flex;align-items:center;gap:8px;flex:none}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--r-sm);font-size:14px;font-weight:600;letter-spacing:-.01em;transition:background-color .15s,border-color .15s,color .15s}
+    .btn-sm{height:38px;padding:0 14px;font-size:13px}
+    .btn-primary{background:var(--lime);color:var(--dark)}
+    .btn-primary:hover{background:var(--dark);color:var(--lime)}
+    .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .btn-outline:hover{border-color:var(--lime);color:var(--dark);background:var(--lime)}
+    .breadcrumb{display:flex;align-items:center;gap:8px;padding-top:18px;font-size:13px;color:var(--muted)}
+    .breadcrumb a:hover{color:var(--text)}
+    .breadcrumb-sep{color:#C9C9C4}
+    .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-block:14px 18px}
+    .page-title{font-size:clamp(1.6rem,1.2rem + 2vw,2.6rem);line-height:1.08;letter-spacing:-.045em}
+    .page-subtitle{margin-top:6px;color:var(--muted);font-size:14px}
+    .catalog-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:24px;align-items:start;padding-bottom:64px}
+    .filters{display:grid;gap:16px;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);padding:16px;position:sticky;top:92px}
+    .filter-group{display:grid;gap:10px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+    .filter-group:last-of-type{padding-bottom:0;border-bottom:0}
+    .filter-head{display:flex;align-items:center;justify-content:space-between}
+    .filter-title{font-weight:600;font-size:14px}
+    .filter-reset{font-size:12px;color:var(--muted)}
+    .filter-reset:hover{color:var(--text)}
+    .filter-list{display:grid;gap:6px}
+    .filter-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:6px 8px;border-radius:var(--r-sm);color:var(--muted);font-size:14px;transition:background .15s,color .15s;cursor:pointer}
+    .filter-item:hover{color:var(--text);background:var(--warm)}
+    .filter-item.is-active{color:var(--text);font-weight:600;background:var(--subtle)}
+    .filter-box{width:16px;height:16px;border-radius:4px;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;flex:none}
+    .filter-item.is-active .filter-box{border-color:var(--dark);background:var(--lime)}
+    .catalog-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .result-count{color:var(--muted);font-size:13px}
+    .sort-wrap{position:relative}
+    .sort-btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 12px 0 14px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px}
+    .sort-btn:hover{border-color:#D5D5CE}
+    .sort-menu{position:absolute;right:0;top:calc(100% + 6px);min-width:220px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:6px;display:none;z-index:40}
+    .sort-menu.is-open{display:grid;gap:2px}
+    .sort-option{display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:var(--r-sm);font-size:13px;color:var(--text)}
+    .sort-option:hover{background:var(--warm)}
+    .sort-option.is-active{background:var(--subtle)}
+    .grid-products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+    .product-card{display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--surface);transition:border-color .15s}
+    .product-card:hover{border-color:#D5D5CE}
+    .product-card:focus-within{box-shadow:0 0 0 3px var(--lime-ring)}
+    .product-card-media{position:relative;aspect-ratio:4/3;background:var(--subtle);overflow:hidden;border-radius:var(--r-xl) var(--r-xl) 0 0}
+    .product-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease}
+    .product-card:hover .product-card-media img{transform:scale(1.04)}
+    .product-card-body{display:flex;flex-direction:column;flex:1;gap:8px;padding:16px 16px 14px;min-height:0}
+    .product-card-cat{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .product-card-title{font-size:15px;font-weight:600;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:calc(1.45em * 2)}
+    .product-card-title a{color:inherit}
+    .product-card-price{font-weight:600;font-size:16px}
+    .product-card-footer{margin-top:auto;display:grid;gap:10px;padding-top:14px}
+    .product-card-footer .btn{width:100%;height:40px}
+    @media(max-width:1180px){
+      .grid-products{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+    @media(max-width:980px){
+      .catalog-layout{grid-template-columns:1fr}
+      .filters{position:static}
+      .grid-products{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    @media(max-width:640px){
+      .container{width:min(calc(100% - 24px),var(--container))}
+      .masthead-inner{height:64px;gap:12px}
+      .header-search-wrap{display:none}
+      .page-head{flex-direction:column;align-items:flex-start}
+      .catalog-toolbar{flex-direction:column;align-items:flex-start}
+      .grid-products{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead">
+      <div class="container masthead-inner">
+        <a class="brand" href="index.html" aria-label="KOLCH HNA — Accueil">
+          <span class="brand-word">KOLCH <span class="brand-accent">HNA</span></span>
+        </a>
+        <div class="header-search-wrap">
+          <div class="global-search">
+            <svg class="icon"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" placeholder="Rechercher un produit, une marque ou un magasin...">
+          </div>
+        </div>
+        <div class="header-actions">
+          <a class="btn btn-outline btn-sm" href="cart.html">Panier</a>
+          <a class="btn btn-outline btn-sm" href="login.html">Se connecter</a>
+          <a class="btn btn-primary btn-sm" href="signup.html">S'inscrire</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Catalogue</span>
+      </nav>
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Catalogue</h1>
+          <p class="page-subtitle">Tous les produits disponibles sur KOLCH HNA</p>
+        </div>
+      </div>
+      <div class="catalog-layout">
+        <aside class="filters">
+          <div class="filter-group">
+            <div class="filter-head">
+              <span class="filter-title">Catégories</span>
+              <button class="filter-reset" type="button" id="filterReset">Réinitialiser</button>
+            </div>
+            <div class="filter-list" data-filter-group="cat">
+              <button class="filter-item is-active" type="button"><span class="filter-box"></span><span>Tous</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Électronique</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Maison & Cuisine</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Mode</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Beauté & Santé</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Automobile</span></button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-title">Wilaya</span>
+            <div class="filter-list" data-filter-group="wilaya">
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Alger</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Oran</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Blida</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Béjaïa</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Constantine</span></button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-title">Prix</span>
+            <div class="filter-list" data-filter-group="price">
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Moins de 2 000 DZD</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>2 000 - 5 000 DZD</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>5 000 - 10 000 DZD</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>10 000 - 30 000 DZD</span></button>
+              <button class="filter-item" type="button"><span class="filter-box"></span><span>Plus de 30 000 DZD</span></button>
+            </div>
+          </div>
+        </aside>
+        <section>
+          <div class="catalog-toolbar">
+            <span class="result-count">128 produits</span>
+            <div class="sort-wrap">
+              <button class="sort-btn" type="button" id="sortBtn" aria-haspopup="listbox" aria-expanded="false">
+                <span id="sortLabel">Plus récents</span>
+                <svg class="icon" style="width:16px;height:16px"><use href="#i-chevron"/></svg>
+              </button>
+              <div class="sort-menu" id="sortMenu" role="listbox">
+                <button class="sort-option is-active" role="option" aria-selected="true" data-value="recent">Plus récents</button>
+                <button class="sort-option" role="option" aria-selected="false" data-value="asc">Prix croissant</button>
+                <button class="sort-option" role="option" aria-selected="false" data-value="desc">Prix décroissant</button>
+                <button class="sort-option" role="option" aria-selected="false" data-value="popular">Les plus populaires</button>
+              </div>
+            </div>
+          </div>
+          <div class="grid-products">
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Smartphone 5G 128GB — Écran AMOLED">
+                <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1160&auto=format&fit=crop" alt="Smartphone">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Électronique</span>
+                <h3 class="product-card-title"><a href="product.html">Smartphone 5G 128GB — Écran AMOLED</a></h3>
+                <span class="product-card-price">34 900 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Écouteurs sans fil Bluetooth">
+                <img src="https://images.unsplash.com/photo-1520923642038-b4259acecbd7?q=80&w=1119&auto=format&fit=crop" alt="Écouteurs sans fil">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Électronique</span>
+                <h3 class="product-card-title"><a href="product.html">Écouteurs sans fil Bluetooth</a></h3>
+                <span class="product-card-price">6 900 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Cafetière Expresso Inox">
+                <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1170&auto=format&fit=crop" alt="Cafetière">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Maison & Cuisine</span>
+                <h3 class="product-card-title"><a href="product.html">Cafetière Expresso Inox</a></h3>
+                <span class="product-card-price">6 800 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Baskets Respirantes Urban Walk">
+                <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?q=80&w=1171&auto=format&fit=crop" alt="Baskets">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Mode</span>
+                <h3 class="product-card-title"><a href="product.html">Baskets Respirantes Urban Walk</a></h3>
+                <span class="product-card-price">4 200 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Pack Huile d'Argan & Nigelle">
+                <img src="https://images.unsplash.com/photo-1596755389378-c31d21fd1273?q=80&w=1173&auto=format&fit=crop" alt="Pack huiles">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Beauté & Santé</span>
+                <h3 class="product-card-title"><a href="product.html">Pack Huile d'Argan & Nigelle</a></h3>
+                <span class="product-card-price">2 900 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Chargeur rapide 65W">
+                <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?q=80&w=1065&auto=format&fit=crop" alt="Chargeur">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Électronique</span>
+                <h3 class="product-card-title"><a href="product.html">Chargeur rapide 65W</a></h3>
+                <span class="product-card-price">2 900 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Support magnétique voiture">
+                <img src="https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?q=80&w=1170&auto=format&fit=crop" alt="Support">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Électronique</span>
+                <h3 class="product-card-title"><a href="product.html">Support magnétique voiture</a></h3>
+                <span class="product-card-price">1 450 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+            <article class="product-card">
+              <a class="product-card-media" href="product.html" aria-label="Voir Coque de protection renforcée">
+                <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=1227&auto=format&fit=crop" alt="Coque">
+              </a>
+              <div class="product-card-body">
+                <span class="product-card-cat">Électronique</span>
+                <h3 class="product-card-title"><a href="product.html">Coque de protection renforcée</a></h3>
+                <span class="product-card-price">1 250 DZD</span>
+                <div class="product-card-footer">
+                  <button class="btn btn-primary btn-sm" type="button">Ajouter au panier</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  </svg>
+  <script>
+    const sortBtn=document.getElementById('sortBtn');
+    const sortMenu=document.getElementById('sortMenu');
+    const sortLabel=document.getElementById('sortLabel');
+    const sortOptions=sortMenu.querySelectorAll('.sort-option');
+    sortBtn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      const open=sortMenu.classList.toggle('is-open');
+      sortBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    sortOptions.forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        sortOptions.forEach(o=>{o.classList.remove('is-active');o.setAttribute('aria-selected','false');});
+        opt.classList.add('is-active');
+        opt.setAttribute('aria-selected','true');
+        sortLabel.textContent=opt.textContent;
+        sortMenu.classList.remove('is-open');
+        sortBtn.setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('click',()=>{sortMenu.classList.remove('is-open'); sortBtn.setAttribute('aria-expanded','false');});
+    sortMenu.addEventListener('click',(e)=>e.stopPropagation());
+
+    const filterGroups=document.querySelectorAll('[data-filter-group]');
+    filterGroups.forEach(group=>{
+      group.querySelectorAll('.filter-item').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          group.querySelectorAll('.filter-item').forEach(b=>b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        });
+      });
+    });
+    const filterReset=document.getElementById('filterReset');
+    if(filterReset){
+      filterReset.addEventListener('click',()=>{
+        filterGroups.forEach(group=>{
+          const items=group.querySelectorAll('.filter-item');
+          items.forEach((b,i)=>b.classList.toggle('is-active',i===0));
+        });
+      });
+    }
+  </script>
+</body>
+</html>
