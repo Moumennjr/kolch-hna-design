@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vente en gros — KOLCH HNA</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#FFFFFF; --surface:#FFFFFF; --text:#191919; --muted:#737373;
+      --border:#E7E7E2; --dark:#111111; --lime:#D7FF00; --subtle:#F0F0EC; --warm:#F7F7F4;
+      --lime-ring:rgba(215,255,0,.45);
+      --r-xs:4px; --r-sm:8px; --r-md:10px; --r-lg:12px; --r-xl:14px;
+      --shadow:0 1px 2px rgba(25,25,25,.04);
+      --container:1200px;
+      --font-display:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+      --font-body:"Inter",ui-sans-serif,system-ui,sans-serif;
+      color-scheme: light;
+    }
+    [data-theme="dark"]{
+      --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+      --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+      --lime-ring:rgba(215,255,0,.35);
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+      color-scheme: dark;
+    }
+    @media (prefers-color-scheme: dark){
+      :root:not([data-theme="light"]){
+        --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+        --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+        --lime-ring:rgba(215,255,0,.35);
+        --shadow:0 1px 2px rgba(0,0,0,.4);
+        color-scheme: dark;
+      }
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+    :focus-visible{outline:2px solid var(--dark);outline-offset:2px;box-shadow:0 0 0 4px var(--lime-ring)}
+    h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:600;letter-spacing:-.025em}
+    .container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+    .site-header{position:sticky;top:0;z-index:60;background:var(--surface)}
+    .masthead{background:var(--surface);border-bottom:1px solid var(--border)}
+    .masthead-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;height:76px}
+    .brand{display:inline-flex;align-items:baseline;gap:10px}
+    .brand-word{font-family:var(--font-display);font-size:18px;font-weight:700;letter-spacing:-.04em;text-transform:uppercase}
+    .brand-accent{display:inline-flex;padding:1px 4px;border-radius:2px;background:var(--lime);color:var(--dark)}
+    .header-actions{display:flex;align-items:center;gap:8px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 18px;border-radius:var(--r-sm);font-size:14px;font-weight:600}
+    .btn-sm{height:38px;padding:0 14px;font-size:13px}
+    .btn-primary{background:var(--lime);color:var(--dark)}
+    .btn-primary:hover{background:var(--dark);color:var(--lime)}
+    .btn-outline{background:transparent;border:1px solid var(--border)}
+    .btn-outline:hover{border-color:var(--lime);color:var(--dark);background:var(--lime)}
+    .breadcrumb{display:flex;align-items:center;gap:8px;padding-top:18px;font-size:13px;color:var(--muted)}
+    .breadcrumb a:hover{color:var(--text)}
+    .breadcrumb-sep{color:#C9C9C4}
+    .page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding-block:14px 18px}
+    .page-title{font-size:clamp(1.6rem,1.2rem + 2vw,2.6rem);letter-spacing:-.045em}
+    .page-subtitle{margin-top:6px;color:var(--muted);font-size:14px}
+    .wholesale-banner{display:grid;gap:10px;border:1px solid var(--border);border-radius:var(--r-xl);background:linear-gradient(90deg, rgba(215,255,0,.18), transparent);padding:18px 20px;margin-bottom:18px}
+    .wholesale-banner h2{font-size:clamp(1.2rem,1rem + 1.2vw,1.8rem)}
+    .filters-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid var(--border);border-radius:var(--r-xl);background:var(--surface);padding:10px 12px;margin-bottom:18px}
+    .filter-pill{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:999px;border:1px solid var(--border);font-size:13px}
+    .filter-pill.is-active{border-color:var(--lime);background:var(--lime);color:var(--dark)}
+    .grid-wholesale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:stretch;padding-bottom:64px}
+    .wholesale-card{display:flex;flex-direction:column;height:100%;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--surface);transition:border-color .15s}
+    .wholesale-card:hover{border-color:#D5D5CE}
+    .wholesale-media{position:relative;aspect-ratio:4/3;background:var(--subtle)}
+    .wholesale-media img{width:100%;height:100%;object-fit:cover}
+    .wholesale-badge{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;height:24px;padding:0 8px;border-radius:4px;background:var(--lime);color:var(--dark);font-size:11px;font-weight:600}
+    .wholesale-body{display:flex;flex-direction:column;flex:1;gap:6px;padding:14px}
+    .wholesale-cat{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+    .wholesale-title{font-weight:600;line-height:1.45}
+    .wholesale-meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}
+    .wholesale-price{font-weight:600}
+    .wholesale-footer{margin-top:auto;display:grid;gap:10px;padding-top:12px}
+    .wholesale-footer .btn{width:100%;height:38px}
+    @media(max-width:1180px){.grid-wholesale{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:980px){.grid-wholesale{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:640px){
+      .container{width:min(calc(100% - 24px),var(--container))}
+      .masthead-inner{height:64px}
+      .page-head{flex-direction:column;align-items:flex-start}
+      .grid-wholesale{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="masthead">
+      <div class="container masthead-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-word">KOLCH <span class="brand-accent">HNA</span></span>
+        </a>
+        <div class="header-actions">
+          <a class="btn btn-outline btn-sm" href="cart.html">Panier</a>
+          <a class="btn btn-outline btn-sm" href="login.html">Se connecter</a>
+          <a class="btn btn-primary btn-sm" href="signup.html">S'inscrire</a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <span class="breadcrumb-sep">/</span>
+        <span>Vente en gros</span>
+      </nav>
+      <div class="page-head">
+        <div>
+          <h1 class="page-title">Vente en gros (B2B)</h1>
+          <p class="page-subtitle">Quantités en gros, prix dégressifs et commandes professionnelles</p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="products.html">Catalogue retail</a>
+      </div>
+      <div class="wholesale-banner">
+        <h2>Commandez en gros pour votre commerce</h2>
+        <p style="margin:0;color:var(--muted)">Demandez un devis, bénéficiez de remises sur volume et livraison adaptée aux professionnels.</p>
+      </div>
+      <div class="filters-bar">
+        <button class="filter-pill is-active">Tous</button>
+        <button class="filter-pill">Alimentation</button>
+        <button class="filter-pill">Hygiène</button>
+        <button class="filter-pill">Emballage</button>
+        <button class="filter-pill">Équipement</button>
+        <select class="filter-pill" style="padding:0 12px">
+          <option>Quantité min.</option>
+          <option>10+</option>
+          <option>50+</option>
+          <option>100+</option>
+        </select>
+      </div>
+      <div class="grid-wholesale">
+        <article class="wholesale-card">
+          <div class="wholesale-media">
+            <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?q=80&w=1074&auto=format&fit=crop" alt="Huile">
+            <span class="wholesale-badge">MOQ 24</span>
+          </div>
+          <div class="wholesale-body">
+            <span class="wholesale-cat">Alimentation</span>
+            <h3 class="wholesale-title">Huile végétale 1L — Carton</h3>
+            <div class="wholesale-meta">
+              <span>Fournisseur vérifié</span>
+              <span>•</span>
+              <span>Alger</span>
+            </div>
+            <span class="wholesale-price">À partir de 1 850 DZD / unité</span>
+            <div class="wholesale-footer">
+              <button class="btn btn-primary btn-sm">Demander un devis</button>
+            </div>
+          </div>
+        </article>
+        <article class="wholesale-card">
+          <div class="wholesale-media">
+            <img src="https://images.unsplash.com/photo-1584305574647-0cc949a2bb9f?q=80&w=1170&auto=format&fit=crop" alt="Serviettes">
+            <span class="wholesale-badge">MOQ 50</span>
+          </div>
+          <div class="wholesale-body">
+            <span class="wholesale-cat">Hygiène</span>
+            <h3 class="wholesale-title">Serviettes jetables — Gros</h3>
+            <div class="wholesale-meta">
+              <span>Fournisseur vérifié</span>
+              <span>•</span>
+              <span>Oran</span>
+            </div>
+            <span class="wholesale-price">À partir de 450 DZD / paquet</span>
+            <div class="wholesale-footer">
+              <button class="btn btn-primary btn-sm">Demander un devis</button>
+            </div>
+          </div>
+        </article>
+        <article class="wholesale-card">
+          <div class="wholesale-media">
+            <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=1170&auto=format&fit=crop" alt="Emballage">
+            <span class="wholesale-badge">MOQ 100</span>
+          </div>
+          <div class="wholesale-body">
+            <span class="wholesale-cat">Emballage</span>
+            <h3 class="wholesale-title">Sacs kraft — Carton gros</h3>
+            <div class="wholesale-meta">
+              <span>Fournisseur vérifié</span>
+              <span>•</span>
+              <span>Constantine</span>
+            </div>
+            <span class="wholesale-price">À partir de 95 DZD / unité</span>
+            <div class="wholesale-footer">
+              <button class="btn btn-primary btn-sm">Demander un devis</button>
+            </div>
+          </div>
+        </article>
+        <article class="wholesale-card">
+          <div class="wholesale-media">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1170&auto=format&fit=crop" alt="Équipement">
+            <span class="wholesale-badge">MOQ 20</span>
+          </div>
+          <div class="wholesale-body">
+            <span class="wholesale-cat">Équipement</span>
+            <h3 class="wholesale-title">Gants jetables — Boîte gros</h3>
+            <div class="wholesale-meta">
+              <span>Fournisseur vérifié</span>
+              <span>•</span>
+              <span>Blida</span>
+            </div>
+            <span class="wholesale-price">À partir de 850 DZD / boîte</span>
+            <div class="wholesale-footer">
+              <button class="btn btn-primary btn-sm">Demander un devis</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
