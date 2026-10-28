@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FFFFFF">
+<title>KOLCH HNA — Marketplace algérienne unifiée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --text:#191919; --muted:#737373;
+  --border:#E7E7E2; --dark:#111111; --lime:#D7FF00; --subtle:#F0F0EC; --warm:#F7F7F4;
+  --muted-strong:#66665F; --muted-dark:#B9B9B4; --border-dark:#3A3A38;
+  --lime-ring:rgba(215,255,0,.45); --placeholder:#6E6E68;
+  --r-xs:4px; --r-sm:8px; --r-md:10px; --r-lg:12px; --r-xl:14px;
+  --shadow:0 1px 2px rgba(25,25,25,.04);
+  --container:1200px;
+  --font-display:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"Inter",ui-sans-serif,system-ui,sans-serif;
+  color-scheme: light;
+}
+[data-theme="dark"]{
+  --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+  --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+  --muted-strong:#B9B9B4; --muted-dark:#6E6E68; --border-dark:#3A3A38;
+  --lime-ring:rgba(215,255,0,.35); --placeholder:#6E6E68;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F0F0E; --surface:#151513; --text:#F5F5F4; --muted:#A1A1A0;
+    --border:#2A2A28; --dark:#111111; --lime:#D7FF00; --subtle:#1F1F1D; --warm:#1A1A18;
+    --muted-strong:#B9B9B4; --muted-dark:#6E6E68; --border-dark:#3A3A38;
+    --lime-ring:rgba(215,255,0,.35); --placeholder:#6E6E68;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+    color-scheme: dark;
+  }
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font-body);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit}
+::selection{background:var(--lime);color:var(--dark)}
+:focus-visible{outline:2px solid var(--dark);outline-offset:2px;box-shadow:0 0 0 4px var(--lime-ring)}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:600;letter-spacing:-.025em;color:var(--text)}
+.container{width:min(calc(100% - 40px),var(--container));margin-inline:auto}
+.icon{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.icon-sm{width:16px;height:16px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;top:-60px;left:16px;z-index:100;background:var(--dark);color:var(--lime);padding:10px 16px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:top .15s}
+.skip-link:focus{top:12px}
+.eyebrow{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px rgba(17,17,17,.22);flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--r-sm);font-size:14px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;transition:background-color .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--lime);color:var(--dark)}
+.btn-primary:hover{background:var(--dark);color:var(--lime)}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--lime);color:var(--dark);background:var(--lime)}
+.btn-sm{height:38px;padding:0 14px;font-size:13px}
+.btn-block{width:100%}
+.link-arrow{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--text);transition:color .15s}
+.link-arrow::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:var(--lime);transform:scaleX(0);transform-origin:left;transition:transform .15s}
+.link-arrow:hover{color:var(--dark)}
+.link-arrow:hover::after{transform:scaleX(1)}
+.link-arrow .icon{width:16px;height:16px;transition:transform .15s}
+.link-arrow:hover .icon{transform:translateX(2px)}
+.site-header{position:sticky;top:0;z-index:60;background:var(--surface)}
+.masthead{background:var(--surface);border-bottom:1px solid var(--border)}
+.masthead-inner{display:flex;align-items:center;gap:20px;height:76px}
+.brand{display:inline-flex;align-items:baseline;gap:10px;flex:none}
+.brand-word{font-family:var(--font-display);font-size:20px;font-weight:700;letter-spacing:-.04em;text-transform:uppercase;color:var(--text)}
+.brand-accent{color:var(--dark);background:var(--lime);padding:1px 4px;border-radius:3px;margin-left:4px}
+.brand-ar{font-size:12px;color:var(--muted);font-weight:500}
+.header-search-wrap{position:relative;flex:1;min-width:0;max-width:600px;margin-inline:auto}
+.global-search{display:flex;align-items:center;height:44px;background:var(--subtle);border:1px solid var(--border);border-radius:var(--r-md);transition:background .15s,border-color .15s,box-shadow .15s}
+.global-search:focus-within{background:var(--surface);border-color:var(--dark);box-shadow:0 0 0 3px var(--lime-ring)}
+.search-scope{position:relative;display:flex;align-items:center;flex:none;height:100%;border-right:1px solid var(--border)}
+.search-scope select{appearance:none;-webkit-appearance:none;height:100%;max-width:126px;padding:0 26px 0 12px;border:0;background:transparent;font-family:var(--font-body);font-size:12px;font-weight:500;color:var(--muted-strong);cursor:pointer;outline:0}
+.search-scope .icon{position:absolute;right:9px;width:12px;height:12px;color:var(--muted);pointer-events:none}
+.global-search input{flex:1;min-width:0;height:100%;padding:0 12px;border:0;background:transparent;font-size:13px;color:var(--text);outline:0}
+.global-search input::placeholder{color:var(--placeholder)}
+.search-ai{display:grid;place-items:center;width:32px;height:32px;margin-right:4px;border-radius:6px;color:var(--muted);flex:none;transition:background .15s,color .15s}
+.search-ai:hover{background:var(--lime);color:var(--dark)}
+.search-ai .icon{width:17px;height:17px}
+.search-go{display:grid;place-items:center;width:34px;height:34px;margin-right:5px;border-radius:6px;background:var(--lime);color:var(--dark);flex:none;transition:background .15s,color .15s}
+.search-go:hover{background:var(--dark);color:var(--lime)}
+.search-go .icon{width:16px;height:16px}
+.search-pop{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:80;max-height:calc(100vh - 160px);overflow-y:auto;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 18px 44px rgba(17,17,17,.14)}
+.search-pop[hidden]{display:none}
+.search-pop-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.search-pop-title{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.search-pop-clear{font-size:11px;color:var(--muted);transition:color .15s}
+.search-pop-clear:hover{color:var(--text)}
+.search-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.search-chip{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--border);border-radius:6px;font-size:12px;color:var(--text);transition:border-color .15s,background .15s,color .15s}
+.search-chip:hover{border-color:var(--lime);background:var(--lime);color:var(--dark)}
+.search-chip span{font-size:10px;color:var(--muted)}
+.search-chip:hover span{color:var(--dark)}
+.search-ai-card{display:flex;align-items:flex-start;gap:10px;width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;background:var(--subtle);text-align:left;transition:border-color .15s}
+.search-ai-card:hover{border-color:#D5D5CE}
+.search-ai-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:6px;background:var(--lime);color:var(--dark);flex:none}
+.search-ai-mark .icon{width:16px;height:16px}
+.search-ai-copy{min-width:0}
+.search-ai-copy strong{display:block;font-size:12px;font-weight:600;color:var(--text)}
+.search-ai-copy span{display:block;margin-top:2px;font-size:11px;line-height:1.45;color:var(--muted)}
+.header-actions{display:flex;align-items:center;gap:2px;flex:none}
+.icon-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:var(--r-sm);color:var(--text);transition:background .15s,color .15s}
+.icon-btn:hover{background:var(--lime);color:var(--dark)}
+.count{position:absolute;top:4px;right:4px;min-width:17px;height:17px;padding:0 4px;border-radius:999px;background:var(--lime);color:var(--dark);box-shadow:0 0 0 1px var(--surface);font-size:10px;font-weight:600;line-height:1;display:grid;place-items:center}
+.account-btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 10px;margin-left:2px;border-radius:var(--r-sm);font-size:14px;font-weight:500;transition:background .15s}
+.account-btn:hover{background:var(--subtle)}
+.domain-bar{position:relative;background:var(--surface);border-bottom:1px solid var(--border)}
+.domain-inner{display:flex;align-items:center;gap:6px;height:42px}
+.all-cats{display:inline-flex;align-items:center;gap:7px;height:100%;padding:0 12px 0 0;font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;flex:none}
+.all-cats .icon{width:15px;height:15px}
+.all-cats .icon:last-child{width:12px;height:12px;color:var(--muted);transition:transform .15s}
+.all-cats[aria-expanded="true"] .icon:last-child{transform:rotate(180deg)}
+.domain-nav{display:flex;align-items:center;height:100%;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.domain-nav::-webkit-scrollbar{display:none}
+.domain-nav a{position:relative;display:inline-flex;align-items:center;height:100%;padding:0 11px;font-size:13px;font-weight:500;color:var(--muted);white-space:nowrap;transition:color .15s}
+.domain-nav a:hover{color:var(--text)}
+.domain-nav a.is-active{color:var(--text)}
+.domain-nav a.is-active::after{content:"";position:absolute;left:11px;right:11px;bottom:-1px;height:3px;background:var(--lime)}
+.domain-deal{display:inline-flex;align-items:center;gap:6px;margin-left:auto;padding-left:12px;font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;flex:none}
+.domain-deal .icon{width:14px;height:14px;color:var(--dark)}
+.mega-menu{position:absolute;left:0;right:0;top:100%;z-index:75;max-height:calc(100vh - 200px);overflow-y:auto;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 24px 44px rgba(17,17,17,.10)}
+.mega-menu[hidden]{display:none}
+.mega-inner{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px;padding-block:24px 28px}
+.mega-col h3{margin:0 0 10px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mega-col a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0;font-size:13px;color:var(--text);transition:color .15s}
+.mega-col a:hover{color:var(--dark)}
+.mega-col a span{font-size:11px;color:var(--muted)}
+.hero{border-bottom:1px solid var(--border)}
+.hero-inner{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:56px;padding-block:64px}
+.hero-copy{max-width:600px}
+.hero h1{font-size:clamp(2.5rem,1.4rem + 3.4vw,3.85rem);line-height:1.02;letter-spacing:-.045em;margin-bottom:20px}
+.hero-highlight{position:relative;display:inline-block;isolation:isolate}
+.hero-highlight::before{content:"";position:absolute;left:-3px;right:-6px;bottom:.06em;height:.34em;background:var(--lime);z-index:-1;transform:skewX(-8deg)}
+.hero-lede{margin:0 0 26px;max-width:48ch;font-size:16px;line-height:1.65;color:var(--muted)}
+.hero-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:26px}
+.hero-benefit{display:flex;flex-direction:column;gap:10px;padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);transition:border-color .15s,background-color .15s}
+.hero-benefit:hover{border-color:#D5D5CE;background:#FCFCFA}
+.hero-benefit-icon{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--lime);color:var(--dark)}
+.hero-benefit-icon .icon{width:16px;height:16px}
+.hero-benefit h3{margin:0 0 3px;font-family:var(--font-body);font-size:13px;font-weight:600;line-height:1.2;letter-spacing:0}
+.hero-benefit p{margin:0;font-size:12px;line-height:1.45;color:var(--muted)}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.hero-visual{width:100%;max-width:600px;min-width:0;justify-self:end}
+.hero-stage{position:relative;width:100%;aspect-ratio:584/620;background:#F7F7F4;border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.hero-connectors{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hero-connectors>path{fill:none;stroke:var(--lime);stroke-width:1.7;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.hero-photo{position:absolute;z-index:2;margin:0;background:#E9E9E3;border-radius:14px;overflow:hidden;box-shadow:0 10px 26px rgba(17,17,17,.10)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-photo-clients{left:2%;top:3.5%;width:26%;height:30.6%}
+.hero-photo-merchants{right:2%;top:6%;width:26%;height:30.6%}
+.hero-photo-wholesale{left:3%;bottom:3.5%;width:27%;height:30.6%}
+.hero-tag{position:absolute;top:8px;left:8px;display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border-radius:6px;background:rgba(255,255,255,.94);border:1px solid rgba(17,17,17,.08);font-size:9px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--dark);white-space:nowrap}
+.hero-tag-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px rgba(17,17,17,.2);flex:none}
+.hero-photo-merchants .hero-tag{left:auto;right:8px}
+.hero-photo-wholesale .hero-tag{top:auto;bottom:8px}
+.market-ui{position:absolute;left:22.5%;top:18.5%;z-index:4;display:flex;flex-direction:column;width:55%;height:59%;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 18px 44px rgba(17,17,17,.13),0 2px 6px rgba(17,17,17,.05);font-size:9px;line-height:1.3}
+.market-top{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px}
+.market-brand{font-family:var(--font-display);font-size:10px;font-weight:700;letter-spacing:-.02em;text-transform:uppercase;color:var(--text);white-space:nowrap}
+.market-brand b{padding:1px 3px;border-radius:2px;background:var(--lime);color:var(--dark)}
+.market-loc{display:inline-flex;align-items:center;gap:3px;font-size:8px;color:var(--muted);white-space:nowrap}
+.market-loc .icon{width:10px;height:10px}
+.market-search{display:flex;align-items:center;gap:5px;height:26px;padding:0 4px 0 8px;margin-bottom:9px;background:var(--subtle);border:1px solid var(--border);border-radius:6px}
+.market-search>.icon{width:11px;height:11px;color:var(--muted)}
+.market-search-text{flex:1;min-width:0;font-size:8.5px;color:var(--placeholder);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.market-search-btn{display:grid;place-items:center;width:18px;height:18px;border-radius:4px;background:var(--lime);color:var(--dark);flex:none}
+.market-search-btn .icon{width:10px;height:10px}
+.market-cats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;margin-bottom:9px}
+.market-cat{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;border:1px solid var(--border);border-radius:6px;font-size:7.5px;font-weight:500;color:var(--muted-strong);text-align:center;white-space:nowrap}
+.market-cat .icon{width:12px;height:12px;color:var(--text)}
+.market-popular{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px;padding-top:8px;border-top:1px solid var(--border)}
+.market-popular-head{display:flex;align-items:center;justify-content:space-between;font-size:8px;font-weight:600;color:var(--text)}
+.market-popular-head span:last-child{font-weight:500;color:var(--muted)}
+.market-item{display:flex;align-items:center;gap:7px;padding:5px;border:1px solid var(--border);border-radius:6px}
+.market-item img{width:28px;height:28px;object-fit:cover;border-radius:4px;flex:none}
+.market-item-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.market-item-info strong{font-size:8px;font-weight:600;line-height:1.2;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.market-item-info span{font-size:7.5px;color:var(--muted)}
+.market-add{display:grid;place-items:center;width:18px;height:18px;border-radius:4px;background:var(--subtle);color:var(--text);flex:none}
+.market-add .icon{width:10px;height:10px}
+.market-foot{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);font-size:7px;color:var(--muted);white-space:nowrap}
+.market-foot .icon{width:9px;height:9px;color:var(--dark)}
+.market-foot-dot{width:2px;height:2px;border-radius:50%;background:#C6C6C0;flex:none}
+.hero-stat{position:absolute;right:2%;bottom:3.5%;z-index:5;display:flex;align-items:center;gap:9px;max-width:46%;padding:10px 12px;background:var(--dark);border-radius:10px;box-shadow:0 10px 24px rgba(17,17,17,.18)}
+.hero-stat-icon{display:grid;place-items:center;width:28px;height:28px;border-radius:6px;background:var(--lime);color:var(--dark);flex:none}
+.hero-stat-icon .icon{width:15px;height:15px}
+.hero-stat-text strong{display:block;font-family:var(--font-body);font-size:10px;font-weight:600;line-height:1.2;letter-spacing:0;color:#FFFFFF}
+.hero-stat-text span{display:block;margin-top:2px;font-size:8px;line-height:1.2;color:var(--muted-dark)}
+.ai-dialog{width:min(calc(100% - 32px),520px);max-height:calc(100vh - 32px);overflow-y:auto;padding:0;border:1px solid var(--border);border-radius:14px;background:var(--surface);color:var(--text);box-shadow:0 24px 64px rgba(17,17,17,.22)}
+.ai-dialog::backdrop{background:rgba(17,17,17,.45)}
+.ai-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 20px 0}
+.ai-head h2{font-size:20px;line-height:1.15;letter-spacing:-.03em}
+.ai-head p{margin:6px 0 0;font-size:13px;line-height:1.5;color:var(--muted)}
+.ai-close{display:grid;place-items:center;width:32px;height:32px;border-radius:6px;color:var(--muted);flex:none}
+.ai-close:hover{background:var(--subtle);color:var(--text)}
+.ai-body{padding:16px 20px 20px}
+.ai-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.ai-suggestion{display:inline-flex;align-items:center;height:30px;padding:0 10px;border:1px solid var(--border);border-radius:6px;font-size:11px;color:var(--text)}
+.ai-suggestion:hover{border-color:var(--lime);background:var(--lime);color:var(--dark)}
+.ai-compose{display:flex;align-items:center;gap:8px;padding:5px 5px 5px 12px;border:1px solid var(--border);border-radius:8px;background:var(--subtle)}
+.ai-compose:focus-within{background:var(--surface);border-color:var(--dark);box-shadow:0 0 0 3px var(--lime-ring)}
+.ai-compose input{flex:1;min-width:0;height:38px;border:0;background:transparent;outline:0;font-size:13px;color:var(--text)}
+.ai-compose input::placeholder{color:var(--placeholder)}
+.ai-note{margin:10px 0 0;font-size:10px;color:var(--muted)}
+.section{padding-top:64px}
+.section:last-of-type{padding-bottom:72px}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.section-head h2{font-size:clamp(1.35rem,1.1rem + .7vw,1.75rem);line-height:1.15;letter-spacing:-.03em}
+.section-head .eyebrow{margin-bottom:8px}
+.section-lede{margin:10px 0 0;max-width:60ch;font-size:14px;color:var(--muted)}
+.category-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:24px;align-items:stretch}
+.category-feature{display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:32px;background:var(--subtle);border:1px solid var(--border);border-radius:var(--r-xl);transition:border-color .15s}
+.category-feature:hover{border-color:#D8D8D1}
+.category-feature-head{display:flex;align-items:center;justify-content:space-between}
+.category-icon{display:inline-flex;align-items:center;color:var(--text)}
+.category-icon .icon{width:22px;height:22px}
+.tag{padding:4px 8px;border:1px solid var(--lime);border-radius:var(--r-xs);background:var(--lime);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--dark)}
+.category-feature h3{font-size:1.75rem;letter-spacing:-.03em;margin:0 0 8px}
+.category-feature p{margin:0;max-width:44ch;font-size:14px;color:var(--muted)}
+.category-subnav{display:flex;flex-wrap:wrap;margin-top:18px;font-size:13px;color:var(--muted)}
+.category-subnav a{transition:color .15s}
+.category-subnav a:hover{color:var(--text)}
+.category-feature p,.category-subnav,.cta-copy .eyebrow,.cta-copy p:last-child{color:var(--muted-strong)}
+.category-subnav a:not(:last-child)::after{content:"·";margin:0 8px;color:#C9C9C4}
+.category-list{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.category-row{display:flex;align-items:center;gap:16px;padding:22px 24px;transition:background .15s}
+.category-row + .category-row{border-top:1px solid var(--border)}
+.category-row:hover{background:var(--subtle);box-shadow:inset 3px 0 0 var(--lime)}
+.category-row .category-icon{color:var(--muted);transition:color .15s}
+.category-row:hover .category-icon{color:var(--text)}
+.category-text{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.category-title{font-family:var(--font-display);font-size:15px;font-weight:600;letter-spacing:-.015em}
+.cat-ar{font-size:11px;color:var(--muted);font-weight:500;margin-left:6px}
+.category-desc{font-size:13px;line-height:1.45;color:var(--muted)}
+.category-row .icon-arrow{width:18px;height:18px;color:var(--muted);transition:transform .15s,color .15s}
+.category-row:hover .icon-arrow{color:var(--text);transform:translateX(2px)}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.product-card{display:flex;flex-direction:column;min-width:0}
+.product-media{position:relative;display:block;aspect-ratio:1/1;background:var(--subtle);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.product-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.product-card:hover .product-media img{transform:scale(1.02)}
+.badge{position:absolute;top:10px;left:10px;padding:4px 7px;border:1px solid var(--lime);border-radius:var(--r-xs);background:var(--lime);font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--dark)}
+.product-body{padding-top:14px;display:flex;flex-direction:column;flex:1}
+.seller{display:flex;align-items:center;gap:5px;margin:0 0 6px;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seller .icon{width:13px;height:13px;color:var(--muted)}
+.seller-sep{color:#C9C9C4}
+.product-name{font-family:var(--font-body);font-size:15px;font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:0 0 10px;min-height:40px}
+.product-name a:hover{color:var(--dark);text-decoration:underline;text-decoration-color:var(--lime);text-decoration-thickness:2px;text-underline-offset:3px}
+.price-line{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+.price{font-family:var(--font-display);font-size:17px;font-weight:600;letter-spacing:-.02em}
+.price-old{font-size:12px;color:var(--muted);text-decoration:line-through}
+.product-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.delivery{display:inline-flex;align-items:center;gap:5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:var(--muted)}
+.delivery .icon{width:14px;height:14px}
+.add-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);color:var(--text);transition:.15s}
+.add-btn:hover{background:var(--lime);border-color:var(--lime);color:var(--dark)}
+.add-btn .icon{width:16px;height:16px}
+.pro-panel{background:var(--dark);border:1px solid var(--dark);border-radius:var(--r-xl);padding:36px}
+.pro-panel .section-head{margin-bottom:28px}
+.pro-panel h2{color:#FFFFFF}
+.pro-panel .eyebrow{color:var(--lime)}
+.pro-panel .eyebrow-dot{box-shadow:0 0 0 1px rgba(255,255,255,.24)}
+.pro-panel .section-lede{color:var(--muted-dark)}
+.pro-panel > .section-head .btn-outline{border-color:var(--border-dark);color:#FFFFFF}
+.pro-panel > .section-head .btn-outline:hover{border-color:var(--lime);background:var(--lime);color:var(--dark)}
+.pro-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.pro-card{display:flex;flex-direction:column;padding:22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+.pro-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px}
+.pro-moq{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pro-unit{font-family:var(--font-display);font-size:15px;font-weight:600;letter-spacing:-.02em}
+.pro-unit span{font-size:11px;font-weight:500;color:var(--muted)}
+.pro-card h3{font-family:var(--font-body);font-size:15px;font-weight:600;line-height:1.35;letter-spacing:-.015em;margin:0 0 6px}
+.pro-supplier{margin:0;font-size:12px;color:var(--muted)}
+.pro-details{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px}
+.pro-details>div:first-child{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted)}
+.pro-details strong{color:var(--text);font-weight:600}
+.pro-ship{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.pro-ship .icon{width:14px;height:14px}
+.pro-details{margin-bottom:20px}
+.pro-card .btn-block{margin-top:auto}
+.store-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:stretch}
+.map-card{position:relative;min-height:280px;border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;background:var(--subtle)}
+.map-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.2) sepia(.06) saturate(.85)}
+.map-info{position:absolute;left:14px;bottom:14px;display:flex;align-items:center;flex-wrap:wrap;gap:6px;max-width:calc(100% - 28px);padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);box-shadow:0 2px 8px rgba(25,25,25,.06);font-size:12px;color:var(--text)}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 1px rgba(17,17,17,.22);flex:none}
+.map-sep{color:#C9C9C4}
+.store-list{display:flex;flex-direction:column;gap:12px}
+.store-row{display:flex;align-items:center;gap:16px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+.store-thumb{width:64px;height:64px;flex:none;object-fit:cover;border:1px solid var(--border);border-radius:var(--r-sm)}
+.store-info{flex:1;min-width:0}
+.store-title-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.store-title-row h3{font-family:var(--font-body);font-size:14px;font-weight:600;letter-spacing:-.01em;margin:0}
+.status-text{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.store-info p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+.store-note{display:inline-block;margin-top:6px;font-size:11px;color:var(--muted)}
+.icon-btn-bordered{width:38px;height:38px;flex:none;border:1px solid var(--border);border-radius:var(--r-sm)}
+.icon-btn-bordered:hover{border-color:var(--lime);color:var(--dark);background:var(--lime)}
+.segmented{display:inline-flex;align-items:center;gap:4px;border-bottom:1px solid var(--border)}
+.seg{position:relative;height:36px;padding:0 12px;font-size:13px;font-weight:500;color:var(--muted);transition:color .15s}
+.seg:first-child{padding-left:0}
+.seg:hover{color:var(--text)}
+.seg.is-active{color:var(--text)}
+.seg.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--lime)}
+.seg:first-child.is-active::after{right:12px}
+.property-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.property-card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.property-media{position:relative;aspect-ratio:16/9;background:var(--subtle);overflow:hidden}
+.property-media img{width:100%;height:100%;object-fit:cover}
+.property-body{display:flex;flex-direction:column;gap:8px;flex:1;padding:20px 22px 22px}
+.property-price-row{display:flex;align-items:baseline;gap:4px}
+.price-lg{font-family:var(--font-display);font-size:22px;font-weight:600;letter-spacing:-.03em}
+.price-period{font-size:12px;color:var(--muted)}
+.property-card h3{font-family:var(--font-body);font-size:15px;font-weight:600;line-height:1.35;letter-spacing:-.01em;margin:0}
+.property-loc{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin:0;font-size:12px;color:var(--muted)}
+.property-loc .icon{width:14px;height:14px}
+.badge-soft{padding:2px 6px;border:1px solid var(--border);border-radius:var(--r-xs);background:var(--subtle);font-size:10px;font-weight:500;color:var(--text)}
+.dot-sep{color:#C9C9C4}
+.property-specs{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:4px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+.property-specs span{display:inline-flex;align-items:center;gap:6px}
+.property-specs .icon{width:15px;height:15px;color:var(--muted)}
+.property-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px}
+.agency{font-size:12px;color:var(--muted)}
+.trust{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding-block:40px}
+.trust-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.trust-title{display:flex;align-items:center;gap:10px}
+.trust-title .icon{width:20px;height:20px;color:var(--text)}
+.trust-title h2{font-size:clamp(1.15rem,1rem + .4vw,1.35rem);letter-spacing:-.02em}
+.trust-tag{padding:4px 8px;border:1px solid var(--lime);border-radius:var(--r-xs);background:var(--lime);font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dark)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+.trust-item{padding:0 24px;border-left:1px solid var(--border)}
+.trust-item:first-child{padding-left:0;border-left:0}
+.trust-item .icon{width:20px;height:20px;color:var(--text);margin-bottom:12px}
+.trust-item h3{font-family:var(--font-body);font-size:14px;font-weight:600;letter-spacing:-.01em;margin:0 0 4px}
+.trust-item p{margin:0;font-size:12px;line-height:1.5;color:var(--muted)}
+.cta-panel{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:40px;padding:40px;background:var(--subtle);border:1px solid var(--border);border-radius:var(--r-xl)}
+.cta-copy h2{font-size:clamp(1.4rem,1.1rem + 1vw,2rem);line-height:1.15;letter-spacing:-.03em;margin:0 0 10px;max-width:20ch}
+.cta-copy p:last-child{margin:0;max-width:52ch;font-size:14px;color:var(--muted)}
+.cta-actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.site-footer{background:var(--surface);border-top:1px solid var(--border)}
+.footer-grid{display:grid;grid-template-columns:1.6fr .8fr .8fr .8fr;gap:48px;padding-block:56px 40px}
+.footer-brand .brand{margin-bottom:14px}
+.footer-brand p{margin:0;max-width:34ch;font-size:13px;color:var(--muted)}
+.footer-loc{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:16px;font-size:12px;color:var(--muted)}
+.footer-loc .icon{width:14px;height:14px}
+.footer-col h3{font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.footer-col a{display:block;padding:5px 0;font-size:13px;color:var(--text);transition:color .15s}
+.footer-col a:hover{color:var(--dark);text-decoration:underline;text-decoration-color:var(--lime);text-decoration-thickness:2px;text-underline-offset:3px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;border-top:1px solid var(--border);font-size:12px;color:var(--muted)}
+.footer-bottom p{margin:0}
+.bottom-nav{display:none}
+@media(max-width:1024px){
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-inner{grid-template-columns:1fr;align-items:start;gap:32px;padding-block:56px 48px}
+  .hero-visual{justify-self:center;max-width:560px}
+  .search-scope select{max-width:112px}
+}
+@media(max-width:960px){
+  .category-grid,.store-layout{grid-template-columns:1fr}
+  .pro-grid{grid-template-columns:1fr}
+  .property-grid{grid-template-columns:1fr}
+  .map-card{min-height:240px}
+}
+@media(max-width:900px){
+  .site-header{position:static}
+  .masthead-inner{flex-wrap:wrap;justify-content:space-between;height:auto;padding-block:10px;gap:10px 12px}
+  .header-search-wrap{order:3;flex-basis:100%;max-width:none;margin:0}
+  .domain-deal{display:none}
+  .bottom-nav{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:70;background:var(--surface);border-top:1px solid var(--border);padding-bottom:env(safe-area-inset-bottom)}
+  .bottom-nav a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;height:56px;font-size:10px;font-weight:500;color:var(--muted)}
+  .bottom-nav a.is-active{color:var(--text)}
+  .bottom-nav a.is-active::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:24px;height:3px;background:var(--lime)}
+  .bottom-nav .icon{width:20px;height:20px}
+  body{padding-bottom:calc(56px + env(safe-area-inset-bottom))}
+}
+@media(max-width:760px){
+  :root{}
+  .masthead-inner{gap:10px 12px}
+  .brand-word{font-size:18px}
+  .brand-ar{display:none}
+  .account-btn span{display:none}
+  .account-btn{width:40px;padding:0;justify-content:center}
+  .search-scope{display:none}
+  .global-search input{font-size:14px}
+  .domain-inner{height:40px}
+  .all-cats{padding-right:8px;font-size:11px}
+  .domain-nav a{padding:0 9px;font-size:12px}
+  .mega-inner{grid-template-columns:1fr 1fr;gap:18px 24px;padding-block:18px 22px}
+  .hero h1{font-size:clamp(2.2rem,7vw,3rem)}
+  .hero-inner{padding-block:40px 36px}
+  .hero-lede{font-size:15px}
+  .section{padding-top:48px}
+  .section-head{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:22px}
+  .category-feature{padding:24px}
+  .category-row{padding:18px 16px}
+  .pro-panel{padding:24px 20px}
+  .cta-panel{grid-template-columns:1fr;gap:24px;padding:28px 24px}
+  .trust-grid{grid-template-columns:repeat(2,1fr);gap:24px 20px}
+  .trust-item{padding:0;border-left:0}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .footer-brand{grid-column:1/-1}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:700px){
+  .hero-visual{max-width:none}
+  .hero-stage{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;aspect-ratio:auto;padding:10px;background:#F7F7F4;border:1px solid var(--border);border-radius:16px;overflow:visible}
+  .hero-connectors{display:none}
+  .market-ui{position:static;grid-column:1/-1;order:-1;width:100%;max-width:430px;height:auto;justify-self:center;box-shadow:0 10px 30px rgba(17,17,17,.10)}
+  .hero-photo{position:relative;inset:auto;width:auto;height:auto;aspect-ratio:auto;background:none;box-shadow:none;overflow:visible;display:flex;flex-direction:column;gap:6px}
+  .hero-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border:1px solid var(--border);border-radius:12px}
+  .hero-tag{position:static;height:auto;padding:0;border:0;background:none;font-size:9px;color:var(--muted-strong);justify-content:flex-start}
+  .hero-photo-merchants .hero-tag,.hero-photo-wholesale .hero-tag{left:auto;right:auto;top:auto;bottom:auto}
+  .hero-stat{position:static;grid-column:1/-1;max-width:none;width:100%;justify-content:flex-start;box-shadow:none}
+}
+@media(max-width:560px){
+  .hero-benefits{grid-template-columns:1fr;gap:8px}
+  .hero-benefit{flex-direction:row;align-items:center;gap:10px;padding:11px 12px}
+  .hero-benefit-icon{width:28px;height:28px}
+  .hero-benefit p{font-size:11.5px}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .btn{width:100%}
+  .search-pop{padding:12px}
+  .search-chip{font-size:11px;height:28px}
+  .product-grid{gap:16px 12px}
+  .product-name{font-size:14px;min-height:38px}
+  .price{font-size:16px}
+  .property-body{padding:16px}
+  .cta-actions{flex-direction:column;align-items:stretch}
+  .cta-actions .link-arrow{justify-content:center}
+  .store-row{align-items:flex-start}
+}
+@media(max-width:360px){
+  .hero-tag{font-size:8px}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu</a>
+<svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18Z"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9.5 4.4 4h15.2L21 9.5"/><path d="M3 9.5V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9.5"/><path d="M3 9.5a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M9 21v-5h6v5"/></symbol>
+  <symbol id="i-package" viewBox="0 0 24 24"><path d="M21 8v8a2 2 0 0 1-1 1.73l-7 4a2 2 0 0 1-2 0l-7-4A2 2 0 0 1 3 16V8a2 2 0 0 1 1-1.73l7-4a2 2 0 0 1 2 0l7 4A2 2 0 0 1 21 8Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/><path d="m7.5 4.3 9 5.2"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01"/><path d="M9 13h.01"/><path d="M9 17h.01"/><path d="M15 9h.01"/><path d="M15 13h.01"/><path d="M15 17h.01"/></symbol>
+  <symbol id="i-device" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z"/><path d="M9 3v15"/><path d="M15 6v15"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></symbol>
+  <symbol id="i-bath" viewBox="0 0 24 24"><path d="M4 12V5a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1"/><path d="M4 12h16"/><path d="M6 12v3a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-3"/><path d="M6 21l1-2"/><path d="M18 21l-1-2"/><path d="M9 6h2"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></symbol>
+  <symbol id="i-area" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1 1 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1Z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Z"/><path d="M21 11h-3a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-5Z"/><path d="M21 11a9 9 0 0 0-18 0"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12"/><path d="m18 6-12 12"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M6.34 17.66l-1.41 1.41"/><path d="M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></symbol>
+</svg>
+<script>
+(function(){
+  const root=document.documentElement;
+  const storage=localStorage.getItem('theme');
+  if(storage==='dark'){root.setAttribute('data-theme','dark');}
+  else if(storage==='light'){root.setAttribute('data-theme','light');}
+  function getDark(){
+    const t=root.getAttribute('data-theme');
+    if(t==='dark') return true;
+    if(t==='light') return false;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function updateUI(){
+    const btn=document.getElementById('theme-toggle');
+    const sun=document.getElementById('theme-icon-sun');
+    const moon=document.getElementById('theme-icon-moon');
+    const dark=getDark();
+    if(btn){btn.setAttribute('aria-pressed',dark?'true':'false');}
+    if(sun) sun.style.display=dark?'none':'block';
+    if(moon) moon.style.display=dark?'block':'none';
+  }
+  function init(){
+    updateUI();
+    document.addEventListener('click',function(e){
+      const btn=e.target.closest('#theme-toggle');
+      if(!btn) return;
+      const dark=getDark();
+      if(dark){root.setAttribute('data-theme','light');localStorage.setItem('theme','light');}
+      else{root.setAttribute('data-theme','dark');localStorage.setItem('theme','dark');}
+      updateUI();
+    });
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init);}else{init();}
+})();
+</script>
+
+<header class="site-header">
+  <div class="masthead">
+    <div class="container masthead-inner">
+      <a class="brand" href="#" aria-label="KOLCH HNA — Accueil">
+        <span class="brand-word">KOLCH <span class="brand-accent">HNA</span></span>
+        <span class="brand-ar" dir="rtl" lang="ar">كلش هنا</span>
+      </a>
+      <div class="header-search-wrap">
+        <form class="global-search" role="search" action="#offres">
+          <div class="search-scope">
+            <label class="sr-only" for="search-scope">Catégorie de recherche</label>
+            <select id="search-scope" name="scope">
+              <option>Toutes catégories</option>
+              <option>Shopping</option>
+              <option>B2B Gros</option>
+              <option>Magasins</option>
+              <option>Immobilier</option>
+            </select>
+            <svg class="icon"><use href="#i-chevron"/></svg>
+          </div>
+          <label class="sr-only" for="global-search">Rechercher sur KOLCH HNA</label>
+          <input id="global-search" type="search" name="q" placeholder="Rechercher produits, boutiques, grossistes…" autocomplete="off" aria-controls="search-pop">
+          <button class="search-ai" type="button" data-ai-open aria-label="Demander à l'assistant IA">
+            <svg class="icon"><use href="#i-sparkle"/></svg>
+          </button>
+          <button class="search-go" type="submit" aria-label="Lancer la recherche">
+            <svg class="icon"><use href="#i-search"/></svg>
+          </button>
+        </form>
+        <div class="search-pop" id="search-pop" hidden>
+          <div class="search-pop-head">
+            <span class="search-pop-title">Recherches populaires</span>
+            <button class="search-pop-clear" type="button" data-search-close>Fermer</button>
+          </div>
+          <div class="search-chips">
+            <button class="search-chip" type="button" data-search-query="Xiaomi Redmi Note 13">Xiaomi Redmi Note 13 <span>34 900 DZD</span></button>
+            <button class="search-chip" type="button" data-search-query="Cafetière expresso">Cafetière expresso <span>6 800 DZD</span></button>
+            <button class="search-chip" type="button" data-search-query="Baskets homme">Baskets homme <span>4 200 DZD</span></button>
+            <button class="search-chip" type="button" data-search-query="Gros électronique">Gros électronique <span>B2B</span></button>
+            <button class="search-chip" type="button" data-search-query="Appartement Alger">Appartement Alger <span>Immobilier</span></button>
+          </div>
+          <button class="search-ai-card" type="button" data-ai-open>
+            <span class="search-ai-mark"><svg class="icon"><use href="#i-sparkle"/></svg></span>
+            <span class="search-ai-copy">
+              <strong>Besoin d'aide pour choisir ?</strong>
+              <span>Demandez à l'IA : comparez, trouvez le bon produit ou le bon fournisseur.</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-outline btn-sm" href="login.html">Se connecter</a>
+        <a class="btn btn-primary btn-sm" href="signup.html">S'inscrire</a>
+      </div>
+    </div>
+  </div>
+  <div class="domain-bar">
+    <div class="container domain-inner">
+      <button class="all-cats" type="button" aria-expanded="false" aria-controls="mega-menu">
+        <svg class="icon"><use href="#i-grid"/></svg>
+        <span>Toutes les catégories</span>
+        <svg class="icon"><use href="#i-chevron"/></svg>
+      </button>
+      <nav class="domain-nav" aria-label="Univers KOLCH HNA">
+        <a class="is-active" href="#">Shopping</a>
+        <a href="#b2b">B2B Gros</a>
+        <a href="#magasins">Magasins</a>
+        <a href="#immobilier">Immobilier</a>
+        <a href="#offres">Deals</a>
+      </nav>
+      <a class="domain-deal" href="#offres">
+        <svg class="icon"><use href="#i-sparkle"/></svg>Offres du jour
+      </a>
+    </div>
+    <div class="mega-menu" id="mega-menu" hidden>
+      <div class="container mega-inner">
+        <div class="mega-col">
+          <h3>Shopping</h3>
+          <a href="#offres">Électronique <span>1 240</span></a>
+          <a href="#offres">Mode <span>860</span></a>
+          <a href="#offres">Maison <span>540</span></a>
+          <a href="#offres">Beauté <span>320</span></a>
+          <a href="#offres">Sport <span>210</span></a>
+        </div>
+        <div class="mega-col">
+          <h3>B2B Gros</h3>
+          <a href="#b2b">Alimentaire <span>180</span></a>
+          <a href="#b2b">Textile <span>96</span></a>
+          <a href="#b2b">Électronique <span>72</span></a>
+          <a href="#b2b">Cosmétiques <span>64</span></a>
+        </div>
+        <div class="mega-col">
+          <h3>Magasins</h3>
+          <a href="#magasins">Alger <span>420</span></a>
+          <a href="#magasins">Oran <span>180</span></a>
+          <a href="#magasins">Constantine <span>120</span></a>
+          <a href="#magasins">Annaba <span>90</span></a>
+        </div>
+        <div class="mega-col">
+          <h3>Immobilier</h3>
+          <a href="#immobilier">Appartements <span>860</span></a>
+          <a href="#immobilier">Villas <span>240</span></a>
+          <a href="#immobilier">Terrains <span>190</span></a>
+          <a href="#immobilier">Locaux pro <span>130</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<dialog class="ai-dialog" id="ai-dialog" aria-labelledby="ai-title">
+  <div class="ai-head">
+    <div>
+      <h2 id="ai-title">L'assistant KOLCH HNA</h2>
+      <p>Décrivez ce que vous cherchez. L'IA vous guide vers les bons produits, fournisseurs ou boutiques.</p>
+    </div>
+    <button class="ai-close" type="button" data-ai-close aria-label="Fermer l'assistant">
+      <svg class="icon"><use href="#i-close"/></svg>
+    </button>
+  </div>
+  <div class="ai-body">
+    <div class="ai-suggestions">
+      <button class="ai-suggestion" type="button" data-ai-suggestion="Un smartphone Android sous 40 000 DZD">Smartphone sous 40 000 DZD</button>
+      <button class="ai-suggestion" type="button" data-ai-suggestion="Fournisseur de textile en gros à Alger">Fournisseur textile en gros</button>
+      <button class="ai-suggestion" type="button" data-ai-suggestion="Cafetière pour une petite boutique">Cafetière pour boutique</button>
+    </div>
+    <form class="ai-compose" id="ai-form">
+      <label class="sr-only" for="ai-input">Votre demande</label>
+      <input id="ai-input" type="text" placeholder="Ex. : je cherche un fournisseur de cosmétiques…" autocomplete="off">
+      <button class="btn btn-primary btn-sm" type="submit">Envoyer</button>
+    </form>
+    <p class="ai-note">Réponse indicative. Vérifiez toujours le vendeur avant commande.</p>
+  </div>
+</dialog>
+
+<main id="main">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span>Marketplace algérienne unifiée</p>
+        <h1>Tout trouver,<br><span class="hero-highlight">au plus près.</span></h1>
+        <p class="hero-lede">Produits du quotidien, achats en gros, commerces de proximité et biens immobiliers — réunis dans une seule marketplace, dans les 58 wilayas.</p>
+        <div class="hero-benefits">
+          <div class="hero-benefit">
+            <span class="hero-benefit-icon"><svg class="icon"><use href="#i-bag"/></svg></span>
+            <div>
+              <h3>Clients</h3>
+              <p>Découvrez produits et boutiques près de chez vous.</p>
+            </div>
+          </div>
+          <div class="hero-benefit">
+            <span class="hero-benefit-icon"><svg class="icon"><use href="#i-store"/></svg></span>
+            <div>
+              <h3>Commerçants</h3>
+              <p>Présentez vos produits et gérez votre boutique.</p>
+            </div>
+          </div>
+          <div class="hero-benefit">
+            <span class="hero-benefit-icon"><svg class="icon"><use href="#i-package"/></svg></span>
+            <div>
+              <h3>Grossistes</h3>
+              <p>Accédez aux prix de gros et développez votre réseau.</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#offres">Explorer la marketplace <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-outline" href="#partenaires">Devenir partenaire</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-stage">
+          <svg class="hero-connectors" viewBox="0 0 584 620" fill="none" aria-hidden="true" focusable="false">
+            <defs>
+              <marker id="hero-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0 0 8 4 0 8Z" fill="#D7FF00"/>
+              </marker>
+            </defs>
+            <path d="M168 76C214 76 204 100 252 104" marker-end="url(#hero-arrow)"/>
+            <path d="M416 68C370 68 382 98 346 104" marker-end="url(#hero-arrow)"/>
+            <path d="M176 524C222 524 214 494 266 490" marker-end="url(#hero-arrow)"/>
+            <path d="M444 496C444 520 424 524 404 544" marker-end="url(#hero-arrow)"/>
+            <circle cx="168" cy="76" r="3" fill="#D7FF00" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="416" cy="68" r="3" fill="#D7FF00" stroke="#FFFFFF" stroke-width="1.5"/>
+            <circle cx="176" cy="524" r="3" fill="#D7FF00" stroke="#FFFFFF" stroke-width="1.5"/>
+          </svg>
+          <figure class="hero-photo hero-photo-clients">
+            <img src="https://images.pexels.com/photos/7679720/pexels-photo-7679720.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=480&amp;h=600&amp;fit=crop&amp;crop=faces" alt="Cliente comparant des produits sur son téléphone" width="480" height="600">
+            <figcaption class="hero-tag"><span class="hero-tag-dot"></span>Clients</figcaption>
+          </figure>
+          <figure class="hero-photo hero-photo-merchants">
+            <img src="https://images.pexels.com/photos/7772169/pexels-photo-7772169.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=480&amp;h=600&amp;fit=crop&amp;crop=faces" alt="Commerçante dans sa boutique de quartier" width="480" height="600">
+            <figcaption class="hero-tag"><span class="hero-tag-dot"></span>Commerçants</figcaption>
+          </figure>
+          <figure class="hero-photo hero-photo-wholesale">
+            <img src="https://images.pexels.com/photos/4483862/pexels-photo-4483862.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=480&amp;h=600&amp;fit=crop&amp;crop=faces" alt="Grossiste vérifiant des cartons dans un entrepôt" width="480" height="600">
+            <figcaption class="hero-tag"><span class="hero-tag-dot"></span>Grossistes</figcaption>
+          </figure>
+          <div class="market-ui" aria-hidden="true">
+            <div class="market-top">
+              <span class="market-brand">KOLCH <b>HNA</b></span>
+              <span class="market-loc"><svg class="icon"><use href="#i-pin"/></svg>Alger</span>
+            </div>
+            <div class="market-search">
+              <svg class="icon"><use href="#i-search"/></svg>
+              <span class="market-search-text">Rechercher un produit…</span>
+              <span class="market-search-btn"><svg class="icon"><use href="#i-search"/></svg></span>
+            </div>
+            <div class="market-cats">
+              <span class="market-cat"><svg class="icon"><use href="#i-device"/></svg><span>Électronique</span></span>
+              <span class="market-cat"><svg class="icon"><use href="#i-home"/></svg><span>Maison</span></span>
+              <span class="market-cat"><svg class="icon"><use href="#i-bag"/></svg><span>Mode</span></span>
+              <span class="market-cat"><svg class="icon"><use href="#i-sparkle"/></svg><span>Beauté</span></span>
+              <span class="market-cat"><svg class="icon"><use href="#i-package"/></svg><span>B2B Gros</span></span>
+              <span class="market-cat"><svg class="icon"><use href="#i-building"/></svg><span>Immobilier</span></span>
+            </div>
+            <div class="market-popular">
+              <div class="market-popular-head"><span>Populaires</span><span>Voir tout</span></div>
+              <div class="market-item">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTPkGy-lM4vNQyI0OABsFNhUsXYWO2uyrZVLnValMj8hoIyg2rycFvuUGAJi3S9ldiehnB8i4qT62x0erZOIS2BbQQdmZgZy4vliGW3rnU_bNPdflKSC2MQuT9OE0Y2ad-EWPp_h6ytIAd6C2b0mYUmt5a0_HyfKLYZkr1gK9U7tYxlNpiganSfo5YbvWACtX6EjLGGFcGccxMODCn3aEjLrgKDnX4lLhZGMolW3WIAiDKvbRbwRuhGQ" alt="" width="56" height="56">
+                <div class="market-item-info"><strong>Xiaomi Redmi Note 13</strong><span>34 900 DZD</span></div>
+                <span class="market-add"><svg class="icon"><use href="#i-plus"/></svg></span>
+              </div>
+              <div class="market-item">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFslZ3npqzmrdVBfynMwS9yxzJC7Q-7McH2PdxlDY7X_B1FZwe4io6B-TpamoXyHK9nDp0j-I_qFrHiWqZ8ZFP9RsjAkqEIDKb9HPQRIP8OBfCTEBnabJ1B1PKiPnk0uccIVzGKdnBAERYkq2vzjoMURu3L05ITRgqab3aeYQ_M8OCNLWhelwLKdqBj17LKHsYuKNwARIjhrkqltfjbdE00NNnwHH2-c_aSGdJX7A39JkBQxqe5ZOKuw" alt="" width="56" height="56">
+                <div class="market-item-info"><strong>Cafetière Expresso Inox</strong><span>6 800 DZD</span></div>
+                <span class="market-add"><svg class="icon"><use href="#i-plus"/></svg></span>
+              </div>
+            </div>
+            <div class="market-foot">
+              <svg class="icon"><use href="#i-truck"/></svg><span>Livraison 58 wilayas</span><span class="market-foot-dot"></span><span>Paiement à la livraison</span>
+            </div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-icon"><svg class="icon"><use href="#i-truck"/></svg></span>
+            <div class="hero-stat-text"><strong>Livraison 58 wilayas</strong><span>Paiement à la livraison</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="univers">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Quatre univers</p>
+          <h2>Explorer la marketplace</h2>
+        </div>
+        <a class="link-arrow" href="#offres">Voir toutes les catégories <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="category-grid">
+        <article class="category-feature">
+          <div class="category-feature-head">
+            <span class="category-icon"><svg class="icon"><use href="#i-store"/></svg></span>
+            <span class="tag">B2C</span>
+          </div>
+          <div>
+            <h3>Boutiques</h3>
+            <p>Des milliers de produits sélectionnés, livrés à domicile ou en stop-desk dans les 58 wilayas.</p>
+            <div class="category-subnav">
+              <a href="#offres">Électronique</a>
+              <a href="#offres">Maison</a>
+              <a href="#offres">Mode</a>
+              <a href="#offres">Beauté</a>
+            </div>
+          </div>
+          <a class="link-arrow" href="#offres">Explorer les boutiques <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </article>
+        <div class="category-list">
+          <a class="category-row" href="#b2b">
+            <span class="category-icon"><svg class="icon"><use href="#i-package"/></svg></span>
+            <span class="category-text">
+              <span class="category-title">B2B Gros <span class="cat-ar" dir="rtl" lang="ar">بالجملة</span></span>
+              <span class="category-desc">Prix usine directs, cartons et palettes avec MOQ garanti.</span>
+            </span>
+            <svg class="icon icon-arrow"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="category-row" href="#magasins">
+            <span class="category-icon"><svg class="icon"><use href="#i-store"/></svg></span>
+            <span class="category-text">
+              <span class="category-title">Magasins <span class="cat-ar" dir="rtl" lang="ar">محلات</span></span>
+              <span class="category-desc">Commerces de proximité, retrait direct et contact WhatsApp.</span>
+            </span>
+            <svg class="icon icon-arrow"><use href="#i-arrow"/></svg>
+          </a>
+          <a class="category-row" href="#immobilier">
+            <span class="category-icon"><svg class="icon"><use href="#i-building"/></svg></span>
+            <span class="category-text">
+              <span class="category-title">Immobilier <span class="cat-ar" dir="rtl" lang="ar">عقارات</span></span>
+              <span class="category-desc">Vente et location vérifiées à travers tout le pays.</span>
+            </span>
+            <svg class="icon icon-arrow"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="offres">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Sélection du jour</p>
+          <h2>Offres à la une</h2>
+        </div>
+        <a class="link-arrow" href="#">Tout voir <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="product-grid">
+        <article class="product-card">
+          <a class="product-media" href="#" aria-label="Voir Xiaomi Redmi Note 13 Pro 256 Go">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTPkGy-lM4vNQyI0OABsFNhUsXYWO2uyrZVLnValMj8hoIyg2rycFvuUGAJi3S9ldiehnB8i4qT62x0erZOIS2BbQQdmZgZy4vliGW3rnU_bNPdflKSC2MQuT9OE0Y2ad-EWPp_h6ytIAd6C2b0mYUmt5a0_HyfKLYZkr1gK9U7tYxlNpiganSfo5YbvWACtX6EjLGGFcGccxMODCn3aEjLrgKDnX4lLhZGMolW3WIAiDKvbRbwRuhGQ" alt="Smartphone Xiaomi posé sur un socle en pierre, lumière naturelle" loading="lazy">
+            <span class="badge">Garantie 12 mois</span>
+          </a>
+          <div class="product-body">
+            <p class="seller"><svg class="icon"><use href="#i-check"/></svg>TechDZ Official<span class="seller-sep">·</span>Alger</p>
+            <h3 class="product-name"><a href="#">Xiaomi Redmi Note 13 Pro 256 Go</a></h3>
+            <div class="price-line"><span class="price">34 900 DZD</span><span class="price-old">38 500</span></div>
+            <div class="product-foot">
+              <span class="delivery"><svg class="icon"><use href="#i-truck"/></svg>Yalidine · 24h</span>
+              <button class="add-btn" type="button" aria-label="Ajouter Xiaomi Redmi Note 13 Pro au panier"><svg class="icon"><use href="#i-plus"/></svg></button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a class="product-media" href="#" aria-label="Voir Cafetière Expresso Inox Tradition">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFslZ3npqzmrdVBfynMwS9yxzJC7Q-7McH2PdxlDY7X_B1FZwe4io6B-TpamoXyHK9nDp0j-I_qFrHiWqZ8ZFP9RsjAkqEIDKb9HPQRIP8OBfCTEBnabJ1B1PKiPnk0uccIVzGKdnBAERYkq2vzjoMURu3L05ITRgqab3aeYQ_M8OCNLWhelwLKdqBj17LKHsYuKNwARIjhrkqltfjbdE00NNnwHH2-c_aSGdJX7A39JkBQxqe5ZOKuw" alt="Cafetière expresso en inox sur un plan de travail artisanal" loading="lazy">
+            <span class="badge">Paiement à la livraison</span>
+          </a>
+          <div class="product-body">
+            <p class="seller"><svg class="icon"><use href="#i-check"/></svg>Maison &amp; Saveurs<span class="seller-sep">·</span>Blida</p>
+            <h3 class="product-name"><a href="#">Cafetière Expresso Inox Tradition</a></h3>
+            <div class="price-line"><span class="price">6 800 DZD</span></div>
+            <div class="product-foot">
+              <span class="delivery"><svg class="icon"><use href="#i-card"/></svg>Cash à la livraison</span>
+              <button class="add-btn" type="button" aria-label="Ajouter Cafetière Expresso Inox Tradition au panier"><svg class="icon"><use href="#i-plus"/></svg></button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a class="product-media" href="#" aria-label="Voir Baskets Respirantes Urban Walk">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-N_Bb-FJ322Tdcc_sI2_m-778QpRrbA4mRzxPzyV2xVOg5EGqnDIe3wKMliqKEEiKwpjDTEwOULxfiwCGgnEj-FSWqbZ5A-E_sGpV4ss1nSJcHpLvP0JoaJOuvgZIRYzKSWXf6a14dLVK0wzXaEWYo95VvJfGog2ry38o9-H3_s-3pVKRGeVLzQrsq5Sij-q66r7X4DSObdoyeAuJYlu43llNu1wtq7Ek4-YLqazz2ghHWfzg3rVcDw" alt="Baskets urbaines légères posées sur des marches en pierre" loading="lazy">
+            <span class="badge">Stock vérifié</span>
+          </a>
+          <div class="product-body">
+            <p class="seller"><svg class="icon"><use href="#i-check"/></svg>El Mordjane Mode<span class="seller-sep">·</span>Oran</p>
+            <h3 class="product-name"><a href="#">Baskets Respirantes Urban Walk</a></h3>
+            <div class="price-line"><span class="price">4 200 DZD</span></div>
+            <div class="product-foot">
+              <span class="delivery"><svg class="icon"><use href="#i-truck"/></svg>Oran &amp; 58 wilayas</span>
+              <button class="add-btn" type="button" aria-label="Ajouter Baskets Respirantes Urban Walk au panier"><svg class="icon"><use href="#i-plus"/></svg></button>
+            </div>
+          </div>
+        </article>
+        <article class="product-card">
+          <a class="product-media" href="#" aria-label="Voir Pack Huile d'Argan et Nigelle">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnMISIN3fdd5OmxGd5XfqcRw0VMI4xF0vNG1MJzpexlSTWCu_uXNf7SLRtim_deKSQVeN3rE4JYzMRCGQ4SP-H-ojmu2zz8pVoz8ymBDBXgTRns8qfltTLIUmZMxOuvyL8ObTd3H-usjHtIPQCvFBd9XGHub6dJk5ToLFFP3BMIsnU0rMTBOo-2OSY9g6_JHVyGUldJViXChDrXXeDmnGtjHUNKEiZICLcgJWcXtU_xFw583Q8mk39TA" alt="Flacons d'huile d'argan et de nigelle entourés de plantes séchées" loading="lazy">
+            <span class="badge">100% terroir</span>
+          </a>
+          <div class="product-body">
+            <p class="seller"><svg class="icon"><use href="#i-check"/></svg>Bio Atlas<span class="seller-sep">·</span>Béjaïa</p>
+            <h3 class="product-name"><a href="#">Pack Huile d'Argan &amp; Nigelle</a></h3>
+            <div class="price-line"><span class="price">2 900 DZD</span></div>
+            <div class="product-foot">
+              <span class="delivery"><svg class="icon"><use href="#i-check"/></svg>Origine certifiée</span>
+              <button class="add-btn" type="button" aria-label="Ajouter Pack Huile d'Argan et Nigelle au panier"><svg class="icon"><use href="#i-plus"/></svg></button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="b2b">
+    <div class="container">
+      <div class="pro-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Espace professionnels</p>
+            <h2>Vente en gros &amp; usines directes</h2>
+            <p class="section-lede">Achetez directement auprès des producteurs et usines algériennes, avec des seuils de commande clairs.</p>
+          </div>
+          <a class="btn btn-outline btn-sm" href="#">Espace Pro <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="pro-grid">
+          <article class="pro-card">
+            <div class="pro-top"><span class="pro-moq">MOQ 50 pièces</span><span class="pro-unit">1 850 DZD<span>/u</span></span></div>
+            <h3>Lot mitigeurs cuisine inox Pro</h3>
+            <p class="pro-supplier">SaniPlast Algérie · Usine certifiée, Sétif</p>
+            <div class="pro-details">
+              <div><span>Seuil de commande</span><strong>92 500 DZD</strong></div>
+              <div class="pro-ship"><svg class="icon"><use href="#i-truck"/></svg>Expédition semi-remorque ou dépôt</div>
+            </div>
+            <button class="btn btn-outline btn-block" type="button">Demander un devis <svg class="icon"><use href="#i-arrow"/></svg></button>
+          </article>
+          <article class="pro-card">
+            <div class="pro-top"><span class="pro-moq">MOQ 100 unités</span><span class="pro-unit">850 DZD<span>/btl</span></span></div>
+            <h3>Cartons huile d'olive extra 1 L</h3>
+            <p class="pro-supplier">Huilerie de Kabylie · Tizi Ouzou</p>
+            <div class="pro-details">
+              <div><span>Seuil de commande</span><strong>85 000 DZD</strong></div>
+              <div class="pro-ship"><svg class="icon"><use href="#i-check"/></svg>Certificat sanitaire fourni</div>
+            </div>
+            <button class="btn btn-outline btn-block" type="button">Demander un devis <svg class="icon"><use href="#i-arrow"/></svg></button>
+          </article>
+          <article class="pro-card">
+            <div class="pro-top"><span class="pro-moq">MOQ 200 m²</span><span class="pro-unit">1 400 DZD<span>/m²</span></span></div>
+            <h3>Palette céramique 60 × 60 grès</h3>
+            <p class="pro-supplier">Comptoir Céramique · Batna</p>
+            <div class="pro-details">
+              <div><span>Seuil de commande</span><strong>280 000 DZD</strong></div>
+              <div class="pro-ship"><svg class="icon"><use href="#i-package"/></svg>Expédition directe chantier 58W</div>
+            </div>
+            <button class="btn btn-outline btn-block" type="button">Demander un devis <svg class="icon"><use href="#i-arrow"/></svg></button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="magasins">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Commerces locaux</p>
+          <h2>Boutiques à Alger &amp; alentours</h2>
+        </div>
+        <a class="btn btn-outline btn-sm" href="#"><svg class="icon"><use href="#i-map"/></svg>Voir la carte</a>
+      </div>
+      <div class="store-layout">
+        <div class="map-card">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBIUMVCkqNfpZRd8IcbGsna3inyNH2FFZ1IUwCCQYioh6-CkNbN0Z9BtYpB3SPyMICckPgHKxgKXM0pRKtfXA4I7FXi0pk3G7Iu505DBTAZKSmsajZLZoVz9jjUECFDCBBO2PUT80jQ9hfXGHSCyYQLlWsW-xcXVJTUyJLGWBQKw8WSDCAFOlLWSDH_7VWawRYfCrLqSFRxHpFsDWPnttotowVCMaISYe_9jweUIuqlbFgYx8psYidtQ" alt="Carte des boutiques partenaires à Alger" loading="lazy">
+          <div class="map-info">
+            <span class="status-dot"></span>
+            <span>34 boutiques ouvertes</span>
+            <span class="map-sep">·</span>
+            <span>Didouche &amp; Bab Ezzouar</span>
+          </div>
+        </div>
+        <div class="store-list">
+          <article class="store-row">
+            <img class="store-thumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKxXJjD9uFlPBxehHFl374hnStwHX0irBFylXdyEEwP-giJFrMLmbvAxzQYLwCdaHfb16H8jjqQWpqxqk5EOM2UYCK2lUZTl3lukQhvderMbMBtTgvqfNsLNS-kNozCU-4kI-MOAAIzZEKvh7_p2cQtegMojk9xCZwuz-tQk0e25YTZNZrt3uyqfC1f_0t2UolblnjjVqjQH2Uhk-gYXy6AOxd-gW1kRgiIlYa_dF_ZqQqEKaCoyoa4w" alt="Intérieur d'une maroquinerie traditionnelle à Alger" loading="lazy">
+            <div class="store-info">
+              <div class="store-title-row">
+                <h3>Cuir &amp; Maroquinerie La Casbah</h3>
+                <span class="status-text"><span class="status-dot"></span>Ouvert</span>
+              </div>
+              <p>Alger Centre · Ouvert jusqu'à 19h00</p>
+              <span class="store-note">Retrait en magasin disponible</span>
+            </div>
+            <button class="icon-btn icon-btn-bordered" type="button" aria-label="Contacter la boutique par message"><svg class="icon"><use href="#i-message"/></svg></button>
+          </article>
+          <article class="store-row">
+            <img class="store-thumb" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7LFIo4ZxgkmgYnTp-FByGvWg27F4kbLgKCH-BhtRWgv5OV8jndjsHZHOkjvj44GR5dhQzFmf8tl9wvGxU-k4m7FhwtcFXG48p4P5GZoAV26gTfve9cPsSSCFGRRB7I7CS3JnYbYB6NIWUnstm4qhSy_m29lNMKJSqez__83wk3EEtD-lJOGY55F_85HSB-zZEDPjOmRCd-qkql9TQ9cWTVszB_pMRXj6QYhOxmRALv-WbPjbuB-Z9kQ" alt="Devanture d'une librairie à Alger" loading="lazy">
+            <div class="store-info">
+              <div class="store-title-row">
+                <h3>Librairie &amp; Papeterie Cheikh</h3>
+                <span class="status-text"><span class="status-dot"></span>Ouvert</span>
+              </div>
+              <p>Didouche Mourad, Alger</p>
+              <span class="store-note">450 articles répertoriés</span>
+            </div>
+            <button class="icon-btn icon-btn-bordered" type="button" aria-label="Appeler la librairie"><svg class="icon"><use href="#i-phone"/></svg></button>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="immobilier">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Immobilier vérifié</p>
+          <h2>Biens vérifiés en Algérie</h2>
+        </div>
+        <div class="segmented" role="tablist" aria-label="Type de transaction">
+          <button class="seg is-active" type="button" role="tab" aria-selected="true">Location</button>
+          <button class="seg" type="button" role="tab" aria-selected="false">Vente</button>
+        </div>
+      </div>
+      <div class="property-grid">
+        <article class="property-card">
+          <div class="property-media">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMiv9-UtTHYS3tTVRJTv94ZDlQ7NZxo-5CZR6X5-yqBZTMjx6O05JZkNFZKnCKEJ20cigIB7AdGuBTYe5cxMU-Ntz07bbfvuKgGo-a6vCqW0tGw7nDfQpUen4Sr5IhRt0F0rpbMdzeGSu_mdezY9MUL-SNVSNWFVMdyNB4QnLZMs_MhuHLbgWBt0e5q-Ny9owK2dSSedkQlPNBQUOvGYdryPKjvCwEZxvxUbQ9eusZpaeI5_pXOxpPOw" alt="Séjour lumineux d'un appartement moderne à Chéraga" loading="lazy">
+            <span class="badge">Location résidentielle</span>
+          </div>
+          <div class="property-body">
+            <div class="property-price-row"><span class="price-lg">85 000 DZD</span><span class="price-period">/mois</span></div>
+            <h3>Appartement F4 moderne, vue dégagée — 120 m²</h3>
+            <p class="property-loc"><svg class="icon"><use href="#i-pin"/></svg>Chéraga, Alger (16)<span class="dot-sep">·</span><span class="badge-soft">Acte &amp; livret foncier</span></p>
+            <div class="property-specs">
+              <span><svg class="icon"><use href="#i-bed"/></svg>3 ch.</span>
+              <span><svg class="icon"><use href="#i-bath"/></svg>2 sdb</span>
+              <span><svg class="icon"><use href="#i-car"/></svg>Parking s/sol</span>
+            </div>
+            <div class="property-foot">
+              <span class="agency">Agence Al Manar</span>
+              <button class="btn btn-outline btn-sm" type="button">Contacter</button>
+            </div>
+          </div>
+        </article>
+        <article class="property-card">
+          <div class="property-media">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB7m1U1J9rpDpu1Pyx6gnjvx-ZlgpaQsVGkZPHH5mBPpp2vcc_d-sIXWal9QJRUOccQJ06JunKLr9G0S9L44wtw0tHmZtMmolc6jOxjRTefAnuLeWvvl_9gy3B52sQWTYdl8NPmW2Lpf4WSWIlJK-1JTzlRoxV4gFCau_x34YjLeG_luBPI02Yi3d8XMJYekqNrDhng1ufMjwYWVYtUXu1qjxI-NLVK1lfFcwg7zXkibQSMA4O_Ah7Dg" alt="Local commercial avec vitrine sur boulevard à Alger" loading="lazy">
+            <span class="badge">Vente commerciale</span>
+          </div>
+          <div class="property-body">
+            <div class="property-price-row"><span class="price-lg">28 000 000 DZD</span></div>
+            <h3>Local commercial vitrine sur boulevard — 85 m²</h3>
+            <p class="property-loc"><svg class="icon"><use href="#i-pin"/></svg>Bir Mourad Raïs, Alger (16)<span class="dot-sep">·</span><span class="badge-soft">Idéal showroom</span></p>
+            <div class="property-specs">
+              <span><svg class="icon"><use href="#i-area"/></svg>85 m²</span>
+              <span><svg class="icon"><use href="#i-store"/></svg>Façade 7 m</span>
+            </div>
+            <div class="property-foot">
+              <span class="agency">Particulier vérifié</span>
+              <button class="btn btn-outline btn-sm" type="button">Contacter</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="trust">
+        <div class="trust-head">
+          <div class="trust-title">
+            <svg class="icon"><use href="#i-shield"/></svg>
+            <h2>Engagements Kolch Hna</h2>
+          </div>
+          <span class="trust-tag">100% Algérie</span>
+        </div>
+        <div class="trust-grid">
+          <div class="trust-item">
+            <svg class="icon"><use href="#i-truck"/></svg>
+            <h3>Livraison 58 wilayas</h3>
+            <p>Partenariats Yalidine, ZR Express et Procolis.</p>
+          </div>
+          <div class="trust-item">
+            <svg class="icon"><use href="#i-card"/></svg>
+            <h3>Paiement flexible</h3>
+            <p>Cash à la livraison (COD) ou carte Edahabia / CIB.</p>
+          </div>
+          <div class="trust-item">
+            <svg class="icon"><use href="#i-store"/></svg>
+            <h3>Vendeurs vérifiés</h3>
+            <p>Commerçants, usines et agents immobiliers contrôlés.</p>
+          </div>
+          <div class="trust-item">
+            <svg class="icon"><use href="#i-headset"/></svg>
+            <h3>Assistance 7j/7</h3>
+            <p>Support client réactif par téléphone et WhatsApp.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="partenaires">
+    <div class="container">
+      <div class="cta-panel">
+        <div class="cta-copy">
+          <p class="eyebrow">Espace partenaires</p>
+          <h2>Commerçant, grossiste ou agent immobilier ?</h2>
+          <p>Rejoignez la première plateforme unifiée d'Algérie et touchez des millions d'acheteurs, de Tipaza à Tamanrasset.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="#">Ouvrir une boutique <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="link-arrow" href="#">En savoir plus <svg class="icon"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#" aria-label="KOLCH HNA — Accueil">
+        <span class="brand-word">KOLCH <span class="brand-accent">HNA</span></span>
+        <span class="brand-ar" dir="rtl" lang="ar">كلش هنا</span>
+      </a>
+      <p>La marketplace algérienne unifiée : produits, gros, commerces de proximité et immobilier.</p>
+      <p class="footer-loc"><svg class="icon"><use href="#i-pin"/></svg>Alger (16)<span class="map-sep">·</span><span>FR / <span dir="rtl" lang="ar">عربي</span></span></p>
+    </div>
+    <div class="footer-col">
+      <h3>Marketplace</h3>
+      <a href="#univers">Boutiques</a>
+      <a href="#b2b">B2B Gros</a>
+      <a href="#magasins">Magasins</a>
+      <a href="#immobilier">Immobilier</a>
+    </div>
+    <div class="footer-col">
+      <h3>Aide</h3>
+      <a href="#">Livraison 58 wilayas</a>
+      <a href="#">Paiement</a>
+      <a href="#">Vendeurs vérifiés</a>
+      <a href="#">Assistance</a>
+    </div>
+    <div class="footer-col">
+      <h3>Contact</h3>
+      <a href="#">WhatsApp</a>
+      <a href="#">Téléphone</a>
+      <a href="#partenaires">Devenir vendeur</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>© 2025 KOLCH HNA (كلش هنا) · Marketplace Algérie B2C, B2B &amp; Immobilier</p>
+    <p>Conçu pour le commerce algérien</p>
+  </div>
+</footer>
+
+<nav class="bottom-nav" aria-label="Navigation mobile">
+  <a class="is-active" href="#"><svg class="icon"><use href="#i-home"/></svg><span>Accueil</span></a>
+  <a href="#b2b"><svg class="icon"><use href="#i-package"/></svg><span>B2B</span></a>
+  <a href="#magasins"><svg class="icon"><use href="#i-store"/></svg><span>Magasins</span></a>
+  <a href="#immobilier"><svg class="icon"><use href="#i-building"/></svg><span>Immobilier</span></a>
+  <a href="#"><svg class="icon"><use href="#i-user"/></svg><span>Compte</span></a>
+</nav>
+
+<script>
+  document.querySelectorAll('.segmented .seg').forEach(function (seg) {
+    seg.addEventListener('click', function () {
+      document.querySelectorAll('.segmented .seg').forEach(function (s) {
+        s.classList.remove('is-active');
+        s.setAttribute('aria-selected', 'false');
+      });
+      seg.classList.add('is-active');
+      seg.setAttribute('aria-selected', 'true');
+    });
+  });
+
+  var searchInput = document.getElementById('global-search');
+  var searchPop = document.getElementById('search-pop');
+  var searchForm = document.querySelector('.global-search');
+  var searchWrap = document.querySelector('.header-search-wrap');
+  var allCats = document.querySelector('.all-cats');
+  var megaMenu = document.getElementById('mega-menu');
+  var aiDialog = document.getElementById('ai-dialog');
+  var aiInput = document.getElementById('ai-input');
+  var aiForm = document.getElementById('ai-form');
+
+  function openSearch() {
+    if (!searchPop || !searchInput) return;
+    searchPop.hidden = false;
+  }
+
+  function closeSearch() {
+    if (!searchPop || !searchInput) return;
+    searchPop.hidden = true;
+  }
+
+  function openAi() {
+    if (!aiDialog) return;
+    closeSearch();
+    closeMega();
+    if (typeof aiDialog.showModal === 'function') {
+      aiDialog.showModal();
+    } else {
+      aiDialog.setAttribute('open', '');
+    }
+    if (aiInput) aiInput.focus();
+  }
+
+  function closeAi() {
+    if (!aiDialog) return;
+    if (typeof aiDialog.close === 'function') {
+      aiDialog.close();
+    } else {
+      aiDialog.removeAttribute('open');
+    }
+  }
+
+  function closeMega() {
+    if (!megaMenu || !allCats) return;
+    megaMenu.hidden = true;
+    allCats.setAttribute('aria-expanded', 'false');
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('focus', openSearch);
+    searchInput.addEventListener('click', openSearch);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var query = searchInput ? searchInput.value.trim() : '';
+      if (!query) {
+        openSearch();
+        if (searchInput) searchInput.focus();
+        return;
+      }
+      closeSearch();
+      var offers = document.getElementById('offres');
+      if (offers) {
+        offers.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        location.hash = 'offres';
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-search-close]').forEach(function (btn) {
+    btn.addEventListener('click', closeSearch);
+  });
+
+  document.querySelectorAll('[data-search-query]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (!searchInput) return;
+      searchInput.value = btn.getAttribute('data-search-query') || '';
+      searchInput.focus({ preventScroll: true });
+      closeSearch();
+    });
+  });
+
+  document.querySelectorAll('[data-ai-open]').forEach(function (btn) {
+    btn.addEventListener('click', openAi);
+  });
+
+  document.querySelectorAll('[data-ai-close]').forEach(function (btn) {
+    btn.addEventListener('click', closeAi);
+  });
+
+  document.querySelectorAll('[data-ai-suggestion]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (!aiInput) return;
+      aiInput.value = btn.getAttribute('data-ai-suggestion') || '';
+      aiInput.focus();
+    });
+  });
+
+  if (aiForm) {
+    aiForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var query = aiInput ? aiInput.value.trim() : '';
+      closeAi();
+      if (query && searchInput) {
+        searchInput.value = query;
+        closeSearch();
+        if (searchForm) {
+          if (typeof searchForm.requestSubmit === 'function') {
+            searchForm.requestSubmit();
+          } else {
+            searchForm.submit();
+          }
+        }
+      }
+    });
+  }
+
+  if (aiDialog) {
+    aiDialog.addEventListener('click', function (e) {
+      if (e.target === aiDialog) closeAi();
+    });
+  }
+
+  if (allCats && megaMenu) {
+    allCats.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (megaMenu.hidden) {
+        megaMenu.hidden = false;
+        allCats.setAttribute('aria-expanded', 'true');
+        closeSearch();
+      } else {
+        closeMega();
+      }
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    if (searchWrap && !searchWrap.contains(e.target)) closeSearch();
+    var domainBar = document.querySelector('.domain-bar');
+    if (domainBar && !domainBar.contains(e.target)) {
+      closeMega();
+    } else if (megaMenu && !megaMenu.hidden && megaMenu.contains(e.target) && e.target.closest('a')) {
+      closeMega();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeSearch();
+      closeMega();
+      if (aiDialog && aiDialog.open) closeAi();
+    }
+  });
+</script>
+
+</body>
+</html>
